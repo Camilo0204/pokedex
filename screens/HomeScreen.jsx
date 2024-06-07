@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
 
 const POKEMON_API_URL = 'https://pokeapi.co/api/v2/pokemon';
 const PAGE_SIZE = 10;
@@ -22,7 +22,14 @@ export default function HomeScreen({ navigation }) {
       const response = await fetch(`${POKEMON_API_URL}?limit=${PAGE_SIZE}&offset=${newOffset}`);
       const data = await response.json();
 
-      setPokemonData(data.results);
+      const detailedDataPromises = data.results.map(async (pokemon) => {
+        const pokemonDetailsResponse = await fetch(pokemon.url);
+        const pokemonDetails = await pokemonDetailsResponse.json();
+        return { ...pokemon, image: pokemonDetails.sprites.front_default };
+      });
+
+      const detailedData = await Promise.all(detailedDataPromises);
+      setPokemonData(detailedData);
       setOffset(newOffset);
     } catch (error) {
       console.error(error);
@@ -43,6 +50,7 @@ export default function HomeScreen({ navigation }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Details', { pokemon: item })}>
+      <Image style={styles.image} source={{ uri: item.image }} />
       <Text style={styles.title}>{item.name}</Text>
     </TouchableOpacity>
   );
@@ -87,6 +95,13 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  image: {
+    width: 80,
+    height: 80,
+    marginRight: 20,
   },
   title: {
     fontSize: 32,
@@ -100,7 +115,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#64B217',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

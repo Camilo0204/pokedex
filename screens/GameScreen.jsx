@@ -26,7 +26,7 @@ export default function GameScreen({ route, navigation }) {
         style={styles.image}
         source={{ uri: pokemonData.sprites.front_default }}
       />
-      <Button title="Back" onPress={() => navigation.goBack()} />
+      <Button title="Atras" onPress={() => navigation.goBack()} />
     </View>
   );
 }

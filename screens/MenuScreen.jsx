@@ -11,12 +11,12 @@ export default function MenuScreen({ navigation }) {
       <View style={styles.container}>
         <CustomButton
           title="Mis Pokémons"
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => navigation.navigate('Pokebola⛔')}
         />
         <CustomButton
           title="Vista del juego"
-          onPress={() => navigation.navigate('Game', { pokemon: { name: "pikachu", url: "https://pokeapi.co/api/v2/pokemon/25/" } })}
-        />
+          onPress={() => navigation.navigate('Game🎮', { pokemon: { name: "pikachu", url: "https://pokeapi.co/api/v2/pokemon/25/" } })}
+        />        
       </View>
     </ImageBackground>
   );

@@ -1,5 +1,3 @@
-// screens/DetailsScreen.js
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Image } from 'react-native';
 
@@ -41,8 +39,12 @@ export default function DetailsScreen({ route }) {
             style={styles.image}
             source={{ uri: pokemonDetails.sprites.front_default }}
           />
-          <Text style={styles.text}>Height: {pokemonDetails.height}</Text>
-          <Text style={styles.text}>Weight: {pokemonDetails.weight}</Text>
+          <Text style={styles.text}>PS: {pokemonDetails.stats[0].base_stat}</Text>
+          <Text style={styles.text}>Ataque: {pokemonDetails.stats[1].base_stat}</Text>
+          <Text style={styles.text}>Defensa: {pokemonDetails.stats[2].base_stat}</Text>
+          <Text style={styles.text}>Ataque Especial: {pokemonDetails.stats[3].base_stat}</Text>
+          <Text style={styles.text}>Defensa Especial: {pokemonDetails.stats[4].base_stat}</Text>
+          <Text style={styles.text}>Velocidad: {pokemonDetails.stats[5].base_stat}</Text>
         </>
       )}
     </View>
